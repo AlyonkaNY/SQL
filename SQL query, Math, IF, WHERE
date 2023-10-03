@@ -1,0 +1,108 @@
+SELECT * FROM book;
+
+SELECT title, amount FROM book;
+
+SELECT title AS book_name FROM book;
+
+SELECT title, author, price, amount
+    price * amount AS total
+FROM book;
++-----------------------+------------------+--------+--------+---------+ 
+| title                 | author           | price  | amount | total   | 
++-----------------------+------------------+--------+--------+---------+ 
+| Мастер и Маргарита    | Булгаков М.А.    | 670.99 | 3      | 2012.97 | 
+| Белая гвардия         | Булгаков М.А.    | 540.50 | 5      | 2702.50 | 
+| Идиот                 | Достоевский Ф.М. | 460.00 | 10     | 4600.00 | 
+| Братья Карамазовы     | Достоевский Ф.М. | 799.01 | 2      | 1598.02 | 
+| Стихотворения и поэмы | Есенин С.А.      | 650.00 | 15     | 9750.00 |
++-----------------------+------------------+--------+--------+---------+ 
+
+/* pack a book for shipping - $4.99, count cost*/
+
+SELECT title, price,
+price + 4.99 AS shipping_cost
+FROM book;
+
+Mathematical Functions
+https://learn.microsoft.com/en-us/sql/t-sql/functions/mathematical-functions-transact-sql?view=sql-server-ver15
+CEILING(x)		CEILING(4.2)=5
+              CEILING(-5.8)=-5
+ROUND(x, k)		ROUND(4.361)=4
+              ROUND(5.86592,1)=5.9
+FLOOR(x)	  	FLOOR(4.2)=4
+              FLOOR(-5.8)=-6
+POWER(x, y) 	POWER(3,4)=81.0
+SQRT(x)	    	SQRT(4)=2.0
+              SQRT(2)=1.41...
+DEGREES(x)		DEGREES(3) = 171.8...
+RADIANS(x)		RADIANS(180)=3.14...
+ABS(x)	    	ABS(-1) = 1
+              ABS(1) = 1
+PI()	        pi = 3.1415926...
+
+/* price 30% off new column AS new_price*/ /* 2- 2 nums after period in round(price)*/
+
+SELECT title, price
+    ROUND(price * 0.7, 2) AS new_price
+FROM book;
+
+IF statement
+/* IF amount of books less then 4, price off 50%, otherwise off 30% */
+
+SELECT title, amount, price, 
+    IF(amount<4, price*0.5, price*0.7) AS sale
+FROM book;
++-----------------------+--------+--------+---------+
+| title                 | amount | price  | sale    |
++-----------------------+--------+--------+---------+
+| Мастер и Маргарита    | 3      | 670.99 | 335.495 |
+| Белая гвардия         | 5      | 540.50 | 378.350 |
+| Идиот                 | 10     | 460.00 | 322.000 |
+| Братья Карамазовы     | 2      | 799.01 | 399.505 |
+| Стихотворения и поэмы | 15     | 650.00 | 455.000 |
++-----------------------+--------+--------+---------+
+
+/* add round for cents .99 */
+
+SELECT title, amount, price, 
+    ROUND(IF(amount<4, price*0.5, price*0.7),2) AS sale
+FROM book;
++-----------------------+--------+--------+--------+
+| title                 | amount | price  | sale   |
++-----------------------+--------+--------+--------+
+| Мастер и Маргарита    | 3      | 670.99 | 335.50 |
+| Белая гвардия         | 5      | 540.50 | 378.35 |
+| Идиот                 | 10     | 460.00 | 322.00 |
+| Братья Карамазовы     | 2      | 799.01 | 399.51 |
+| Стихотворения и поэмы | 15     | 650.00 | 455.00 |
++-----------------------+--------+--------+--------+
+ /* add 10% and 5% on top of price* - for author Dostoevsky, Bulgakov, title, new_price/
+
+SELECT author, title,
+    ROUND(IF(author = 'Fyodor Dostoevsky', price * 1.1, IF(author = 'Mikhail Bulgakov', price * 1.05, price)), 2) AS new_price
+FROM book;
+
+/*WHERE includes =, <, >, <=, >= */
+SELECT title, price 
+FROM book
+WHERE price < 600;
++---------------+--------+
+| title         | price  |
++---------------+--------+
+| Белая гвардия | 540.50 |
+| Идиот         | 460.00 |
++---------------+--------+
+
+SELECT title, author, price * amount AS total
+FROM book
+WHERE price * amount > 4000;
+
+SELECT title, author, price
+FROM book
+WHERE amount < 10;
+
+
+
+
+
+
