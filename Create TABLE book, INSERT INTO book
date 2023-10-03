@@ -1,0 +1,22 @@
+/*book_id	INT PRIMARY KEY AUTO_INCREMENT
+title	VARCHAR(50)
+author	VARCHAR(30)
+price	DECIMAL(8, 2)
+amount	INT*/
+
+CREATE TABLE book( book_id INT PRIMARY KEY AUTO-INCREMENT, title VARCHAR(50), author VARCHAR(50), price DECIMAL(8.2), amount INT);
+
+/*INSERT INTO table_name(field1, field2) 
+VALUES (values1, values2);*/
+
+INSERT INTO book
+VALUES ('The Master and Margarita', 'Mikhail Bulgakov', 11.99, 3),
+
+INSERT INTO book( title, author, price, amount)
+VALUES ('Idiot', 'Fyodor Dostoevsky', 14.99, 5),
+       ('Crime and Punishment, Fyodor Dostoevsky, 12.99, 10);
+
+
+
+
+
