@@ -1,0 +1,47 @@
+To select a column to sort rows need to use ORDER BY, than use name of the column. ORDER BY is ASC(ascendant) by default. If need to change use DESC(decrease) after name of the column.
+
+Columns after ORDER BY can be called:
+by name;
+by number;
+by new name (after AS).
+
+SELECT title, author, price              SELECT title, author, price
+FROM book                                FROM book
+ORDER BY title;                          ORDER BY 1;
++-----------------------+------------------+--------+
+| title                 | author           | price  |
++-----------------------+------------------+--------+
+| Белая гвардия         | Булгаков М.А.    | 540.50 |
+| Братья Карамазовы     | Достоевский Ф.М. | 799.01 |
+| Идиот                 | Достоевский Ф.М. | 460.00 |
+| Мастер и Маргарита    | Булгаков М.А.    | 670.99 |
+| Стихотворения и поэмы | Есенин С.А.      | 650.00 |
++-----------------------+------------------+--------+
+/*author, title and amount AS count(new column), sort by author for books which prices less than 20, DESC.*/
+
+SELECT author, title, amount AS count              
+FROM book
+WHERE price < 20
+ORDER BY author, amount DESC; 
+
+/*author, title, amount of which between 2 and 14, sort by author DESC, title ASC*/
+
+SELECT author, title
+FROM book
+WHERE amount BETWEEN 2 AND 14
+ORDER BY author DESC, title;
+
+LIKE         % - anything before or after 
+SELECT title 
+FROM book
+WHERE title LIKE 'M%';
+
+             _ - one simbol
+SELECT title FROM book 
+WHERE title LIKE "_ _ _ _ _";
+
+select title, author
+from book
+where title like "_% %" and (author like "%B" OR author LIKE "%D")
+order by title asc;
+
