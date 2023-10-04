@@ -1,0 +1,36 @@
+PRIORITIES(!!!!!!!) after WHERE:
+
+()
+(*),  (/)
+(+),  (-)
+(=, >, <, >=, <=, <>) BETWEEN, IN
+NOT
+AND
+OR
+
+SELECT title, author, price
+FROM book
+WHERE price > 15 AND author = 'Mikhail Bulgakov';
+
+SELECT title, author, price
+FROM book
+WHERE (author = 'Mikhail Bulgakov' OR author = 'Fyodor Dostoevsky') AND price > 10;
+
+/* price <500 or price >600 and total sum >= 5000*/
+SELECT author, title, price
+FROM book
+WHERE (price < 500 or price > 600) AND price * amount >= 5000;
+
+BETWEEN
+SELECT title, price                                           SELECT title, price
+FROM book WHERE amount BETWEEN 5 AND 14;                      FROM book WHERE amount >= 5 AND amount <= 14;
+
+IN
+SELECT title, price                                           SELECT title, price
+FROM book                                                     FROM book
+WHERE author IN ('Mikhail Bulgakov', 'Fyodor Dostoevsky');    WHERE author = 'Mikhail Bulgakov' OR author = 'Fyodor Dostoevsky';
+
+/*author and title for books, prices of which between 540.50 and 800, amount 2, or 3, or 5, or 7*/
+SELECT author, title
+FROM book
+WHERE price BETWEEN 540.50 AND 800 AND amount IN (2, 3, 5, 7);
