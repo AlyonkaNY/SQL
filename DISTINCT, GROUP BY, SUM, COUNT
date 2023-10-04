@@ -1,0 +1,29 @@
+DISTINCT
+DISTINCT is an optional parameter of the SELECT block and applies immediately to all table columns listed in the SELECT. 
+The DISTINCT parameter is used to retrieve table rows with unique values. The parameter must be placed immediately after the SELECT keyword.
+
+SELECT DISTINCT amount FROM book;
+
+GROUP BY
+
+SELECT amount
+from book
+GROUP BY amount;
+
+SUM COUNT
+
+SELECT author, SUM(amount), COUNT(amount)
+FROM book
+GROUP BY author;
+
+/*how many books of each author available*/
+SELECT author, SUM(amount)
+FROM book
+GROUP BY author;
++------------------+-------------+
+| author           | SUM(amount) |
++------------------+-------------+
+| Булгаков М.А.    | 8           |
+| Достоевский Ф.М. | 23          |
+| Есенин С.А.      | 15          |
++------------------+-------------+
