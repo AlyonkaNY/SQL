@@ -1,0 +1,46 @@
+SELECT author,
+    MIN(price) AS Минимальная_цена, 
+    MAX(price) AS Максимальная_цена
+FROM book
+GROUP BY author
+HAVING SUM(price * amount) > 5000; 
+
+Вычислить среднюю цену и суммарную стоимость тех книг, количество экземпляров которых принадлежит интервалу от 5 до 14, включительно.
+Столбцы назвать Средняя_цена и Стоимость, значения округлить до 2-х знаков после запятой.
+
+SELECT ROUND(AVG(price), 2) AS average_price,
+       ROUND(SUM(price * amount), 2) AS total_cost
+FROM book WHERE amount BETWEEN 5 AND 14;
+
+FROM
+WHERE
+GROUP BY
+HAVING
+SELECT
+ORDER BY
+First, the table from which data is selected is determined (FROM), then records are selected from this table in accordance with the WHERE condition,
+the selected data is aggregated (GROUP BY), and those that satisfy the condition after HAVING are selected from the aggregated records. 
+Then the data of the resulting sample is generated, as indicated after SELECT (expressions are calculated, names are assigned, etc.). 
+The resulting selection is sorted as specified after the ORDER BY.
+
+SELECT author,
+    MIN(price) AS min_price,
+    MAX(price) AS max_price
+FROM book
+WHERE author <> 'Mikhail Bulgakov'   ( not <>)
+GROUP BY author
+HAVING SUM(amount) > 10;
++------------------+------------------+-------------------+
+| author           | Минимальная_цена | Максимальная_цена |
++------------------+------------------+-------------------+
+| Достоевский Ф.М. | 460.00           | 799.01            |
++------------------+------------------+-------------------+
+
+SELECT author, SUM(price * amount) AS Стоимость
+FROM book
+WHERE title not in ('Идиот', 'Белая гвардия')
+GROUP BY author
+HAVING SUM(price * amount) > 5000
+ORDER BY Стоимость DESC;
+
+
