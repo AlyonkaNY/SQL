@@ -1,0 +1,26 @@
+/*all info about cheapest books in stack*/
+SELECT title, author, price, amount
+FROM book
+WHERE price = (
+         SELECT MIN(price) 
+         FROM book
+      );
+
+/*select info about books with price less or == AVG price*/
+SELECT author, title, price
+FROM book
+WHERE price <= (
+         SELECT AVG(price)
+         FROM book)
+ORDER BY price DESC;
+
+/*select info about books where amount different by 3 from avg amount*/
+SELECT title, author, amount
+FROM book
+WHERE ABS(amount - (SELECT AVG(amount) FROM book)) > 3;
+/* select info where price cost more up to 150 then min price*/
+SELECT author, title, price
+from book 
+where price - (select min(price) from book) <= 150
+order by price;
+
