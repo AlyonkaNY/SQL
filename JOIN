@@ -1,0 +1,18 @@
+INSERT INTO book (title, author, price, amount) 
+SELECT title, author, price, amount 
+FROM supply;
+
+SELECT * FROM book;
+
+INSERT INTO book(title, author, price, amount)
+SELECT title, author, price, amount 
+from supply
+where author not in ('Достоевский Ф.М.', 'Булгаков М.А.');
+
+INSERT INTO book (title, author, price, amount) 
+SELECT title, author, price, amount 
+FROM supply
+WHERE title NOT IN (
+        SELECT title 
+        FROM book
+      );
