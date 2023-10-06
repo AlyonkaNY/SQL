@@ -1,0 +1,32 @@
+/*info about books, where amount >= 12*/
+
+SELECT author, title, price, amount
+FROM book
+WHERE author IN (
+        SELECT author 
+        FROM book
+        GROUP BY author
+        HAVING SUM(amount) >= 12);
+
+/*select info where amount is unique*/
+SELECT author, title, amount
+FROM book
+WHERE amount NOT IN ( SELECT amount FROM book GROUP BY amount HAVING SUM(amount) != amount); 
+
+ANY - достаточно выполнения хотя бы одного условия, то есть, достаточно самой лёгкой проверки:
+1)меньше самого большого
+2)больше самого маленького
+(быть меньше самого большого и больше самого маленького легко - это задача минимум)
+
+ALL - необходимо выполнение всех условий, значит, необходимо прохождение самой сложной проверки:
+1)больше самого большого
+2)меньше самого маленького:
+(^ это задача-максимум, но её прохождение автоматически гарантирует прохождение всех остальных менее сложных условий)
+
+Select author, title, price
+from book
+where price < Any (
+    select MIN(price)
+    from book
+    group by author
+    );
