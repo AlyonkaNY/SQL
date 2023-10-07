@@ -1,0 +1,23 @@
+UPDATE book 
+SET price = 0.7 * price;
+
+SELECT * FROM book;
+
+UPDATE book 
+SET price = 0.7 * price 
+WHERE amount < 5;
+
+UPDATE book
+SET price = 0.9 * price
+WHERE amount BETWEEN 5 AND 10;
+
+UPDATE book 
+SET buy = amount WHERE buy > amount;
+
+UPDATE book 
+SET price = price * 0.9 WHERE buy = 0;
+
+UPDATE book, supply 
+SET book.amount = book.amount + supply.amount,
+    book.price = (book.price + supply.price)/2
+WHERE book.title = supply.title AND book.author = supply.author;
