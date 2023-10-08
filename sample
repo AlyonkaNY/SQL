@@ -1,0 +1,21 @@
+/*select workers with last name ends with a*/
+
+SELECT name, city, per_diem, date_first, date_last
+FROM trip
+WHERE name LIKE ('%a %')
+ORDER BY date_last DESC;
+
+/*workers who went to NY*/
+
+SELECT name
+from trip
+where city='New York'
+group by name
+Order BY name;
+
+/*for each city count visits AS count column by alphabetical order*/
+
+SELECT city, count(city) as count
+from trip
+group by city
+order by city;
