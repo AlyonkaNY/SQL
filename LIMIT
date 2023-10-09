@@ -1,0 +1,57 @@
+SELECT *
+FROM trip
+ORDER BY  date_first
+LIMIT 1;
+
+SELECT city, count(city) AS count
+FROM trip
+ORDER BY count(city) DESC
+LIMIT 3;
+
+DATEDIFF(date_1, date_2)
+DATEDIFF(date_last, date_first)
+/*info and how many days*/
+
+SELECT name, city, DATEDIFF(date_last, date_first)+1 AS duration
+FROM trip
+WHERE city NOT IN ('NEW YORK', 'CHICAGO')
+ORDER BY duration DESC;
+
+
+SELECT name, city, date_first, date_last
+FROM trip
+WHERE datediff(date_last,date_first) = (
+                 SELECT MIN(datediff(date_last,date_first))
+                 FROM trip
+                 )
+ORDER BY 1;
+
+/*select trips starts and ends on a same month*/
+SELECT name, city, date_first, date_last
+from trip
+WHERE MONTH(date_first)= MONTH(date_last) 
+ORDER BY city, name;
+
+SELECT MONTHNAME(date_first) as Month, count(MONTHNAME(date_first))
+FROM trip
+GROUP BY MONTHNAME(date_first)
+ORDER BY  count(MONTHNAME(date_first)) DESC, MONTHNAME(date_first); 
+
+SELECT  name, city, date_first, DATEDIFF(date_last+1, date_first) * per_diem AS summ
+FROM trip
+WHERE date_first >= '2020-02-01' and date_first <= '2020-03-31'
+ORDER BY name, summ DESC;
+
+/*name and salary for workers who went on a trips more then 3 times*/.
+
+SELECT name, SUM(DATEDIFF(date_last+1, date_first) * per_diem) AS summ
+FROM trip
+WHERE name IN (
+        SELECT name 
+        FROM trip 
+        group by name
+        having count(name) > 3
+      )
+group by name
+order by summ DESC;
+
