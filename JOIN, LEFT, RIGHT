@@ -1,0 +1,23 @@
+SELECT firstname, lastname, city, number, type
+FROM Customers JOIN Phonenumbers
+ON Customers.id = Phonenumbers.customer_id
+
+/*table aliases*/
+SELECT C.firstname, C.lastname, C.city, PN.number, PN.type
+FROM Customers AS C JOIN PhoneNumbers AS PN
+ON C.id = PN.customer_id
+
+SELECT Users.name, Accounts.number
+FROM Users JOIN Accounts
+ON Users.id = Accounts.user_id
+
+/*LEFT JOIN*/
+SELECT C.firstname, C.lastname, C.city, PN.number, PN.type
+FROM Customers AS C LEFT JOIN PhoneNumbers AS PN
+ON C.id = PN.customer_id
+
+/*RIGHT JOIN*/
+SELECT C.firstname, C.lastname, C.city, PN.number, PN.type
+FROM PhoneNumbers AS PN RIGHT JOIN Customers AS C
+ON C.id = PN.customer_id
+ORDER BY C.id
